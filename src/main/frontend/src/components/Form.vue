@@ -1,26 +1,73 @@
 <script setup>
+import { ref, reactive, onBeforeMount } from "vue";
+import axios from "axios";
+
+const onFileChange = event => {
+  file.value = event.target.files[0];
+};
+const file = ref(null);
+const nameModel = ref()
+const descriptionModel = ref()
+const post = reactive({
+  name: nameModel,
+  description: descriptionModel,
+})
+const submitData = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("name", nameModel.value);
+    formData.append("description", descriptionModel.value);
+    if (file.value != null) {
+      formData.append("file", file.value);
+
+      await axios({
+        method: "POST",
+        url: "http://localhost:8080/media/upload/post",
+        data: formData,
+        withCredentials: false,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } else {
+      await axios({
+        method: "POST",
+        url: "http://localhost:8080/api/posts/add",
+        data: post,
+        withCredentials: true,
+      });
+    }
+    console.log("Enviado")
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
 
 </script>
 
 <template>
 <section class="aling">
-<form action="">
+<form @submit.prevent="submitData">
     <div class="img-archive">
         <img src="../assets/imgs/Richard Bergh Tarde nórdica de verano (1).jpg" alt="">
     </div>
     <div class="inputs">
         <div class="box">
             <h1 class="title-form">Información:</h1>
-            <input class="text-form" type="text">
+            <input v-model="nameModel" class="text-form" type="text">
         </div>
         <div class="box">
             <h1 class="title-form">Mi sentimiento:</h1>
-            <input class="text-form" type="text">
+            <input v-model="descriptionModel" class="text-form" type="text">
         </div>
+        <input type="file" @change="onFileChange">
     </div>
     <div class="btns">
         <button class="btn-delete">Borrar</button>
-        <router-link class="btn-post" to="/Recommendations" href="">Publicar</router-link>
+        <!-- <router-link to="/Recommendations" href="">Publicar</router-link> -->
+        <button @click="submitData" class="btn-post">Publicar</button>
     </div>
 </form>
 </section>

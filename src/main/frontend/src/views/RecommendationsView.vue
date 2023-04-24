@@ -1,5 +1,6 @@
 <script setup>
 import Header from '../components/Header.vue';
+import RecommendationGallery from '../components/RecommendationGallery.vue';
 
 </script>
 <template>
@@ -7,6 +8,7 @@ import Header from '../components/Header.vue';
 <div class="x">
 <router-link class="btn-r"  to="/Form" href="">Recomendar</router-link>
 </div>
+<RecommendationGallery/>
 </template>
 <style lang="scss" scoped>
 @import "../assets/scss/Variables.scss";
