@@ -29,13 +29,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
+    private String img;
     
-    @Column(name = "name")
     private String name;
     
-    @Column(name = "description")
-    private String description;
-    
-    
+    private String description;   
    
 }
