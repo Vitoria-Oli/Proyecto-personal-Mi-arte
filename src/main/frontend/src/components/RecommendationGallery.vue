@@ -1,4 +1,9 @@
 <script setup>
+import { ref, reactive, computed, onBeforeMount, onBeforeUpdate } from "vue";
+import axios from "axios";
+const props = defineProps({
+	post: Object,
+})
 </script>
 <template>
  <div class="gallery">
@@ -7,7 +12,7 @@
         <div class="grid">
           <div class="row">
           <a class="gallery-item" href="#">
-            <img class="gallery-img" src="" alt=""/>
+            <img class="filePubli" v-if="post.image" :src="'http://localhost:8080/media/' + post.image" alt="imagen post" />
           </a>
         </div>
         <div class="row">
@@ -53,7 +58,7 @@
               .gallery-item {
                 --column-gutter: 24px;
                 --columns: 3;
-              .gallery-img{
+              .filePubli{
                 width: 100%;
                 border: 3px solid black;
             }

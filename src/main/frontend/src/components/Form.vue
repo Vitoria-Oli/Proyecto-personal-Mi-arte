@@ -1,10 +1,31 @@
 <script setup>
-import { ref, reactive, onBeforeMount } from "vue";
+import { ref, reactive, computed, onBeforeMount, onBeforeUpdate } from "vue";
 import axios from "axios";
 
-const onFileChange = event => {
-  file.value = event.target.files[0];
+const imgUrl = computed(() => url.value);
+let readOnly = ref(true);
+const onFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    axios({
+      method: "POST",
+      url: "http://localhost:8080/media/upload",
+      data: formData,
+      withCredentials: true,
+    })
+      .then((response) => {
+        url.value = response.data.url;
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("Catch error upload");
+      });
+  }
+  window.location.reload();
 };
+
 const file = ref(null);
 const nameModel = ref()
 const descriptionModel = ref()
@@ -39,7 +60,7 @@ const submitData = async () => {
     }
     console.log("Enviado")
   } catch (error) {
-    console.log(error);
+    //  console.log(error);
   }
 
 }
@@ -51,7 +72,20 @@ const submitData = async () => {
 <section class="aling">
 <form @submit.prevent="submitData">
     <div class="img-archive">
-        <img src="../assets/imgs/Richard Bergh Tarde nórdica de verano (1).jpg" alt="">
+        <input type="file"  ref="fileInput" style="display: none"/>
+        <input type="file" @change="onFileChange"/>
+      <!-- <img
+        @click="$refs.fileInput.click()"
+        class="imgfile"
+        v-if="user.img != null"
+        :src="'http://localhost:8080/media/'"
+        alt="img"/>
+      <img
+        @click="$refs.fileInput.click()"
+        class="imgfile"
+        v-else
+        src="../assets/imgs/Richard Bergh Tarde nórdica de verano (1).jpg"
+        alt="img"/> -->
     </div>
     <div class="inputs">
         <div class="box">
@@ -62,11 +96,10 @@ const submitData = async () => {
             <h1 class="title-form">Mi sentimiento:</h1>
             <input v-model="descriptionModel" class="text-form" type="text">
         </div>
-        <input type="file" @change="onFileChange">
+        
     </div>
     <div class="btns">
         <button class="btn-delete">Borrar</button>
-        <!-- <router-link to="/Recommendations" href="">Publicar</router-link> -->
         <button @click="submitData" class="btn-post">Publicar</button>
     </div>
 </form>
@@ -93,7 +126,7 @@ const submitData = async () => {
             justify-content: center;
             display: flex;
             align-items: center; 
-            img{
+            .imgfile{
                 border: 5px solid black;
                 width: 50%;
                 max-width: 50%;

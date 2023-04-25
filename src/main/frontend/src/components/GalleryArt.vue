@@ -8,9 +8,9 @@
       <div class="box">
         <div class="grid">
           <div class="row">
-          <a class="gallery-item" href="#">
+          <a class="gallery-item" href="/Information1"  to="/Information1">
             <img
-              class="gallery-img"
+              class="gallery-img " 
               src="../assets/imgs/img-2022072962e3bd52543e2_ipad (1).jpeg"
               alt=""
             />
@@ -31,9 +31,9 @@
           </a>
         </div>
         <div class="row">
-          <a class="gallery-item" href="#">
+          <a class="gallery-item" href="/Information2" to="/Information2">
             <img
-              class="gallery-img"
+              class="gallery-img"  
               src="../assets/imgs/IMG_20230321_084548_493 (1).jpg"
               alt=""
             />
@@ -54,9 +54,9 @@
           </a>
         </div>
         <div class="row">
-          <a class="gallery-item" href="#">
+          <a class="gallery-item" href="/Information3" to="/Information3">
             <img
-              class="gallery-img"
+              class="gallery-img"  
               src="../assets/imgs/Uemura Shoen  Mujer hermosa leyendo un libro (2).jpg"
               alt=""
             />

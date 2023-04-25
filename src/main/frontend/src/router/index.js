@@ -34,6 +34,21 @@ const router = createRouter({
       name: 'Information',
       component: () => import('../views/InformationView.vue')
     },
+    {
+      path: '/Information1',
+      name: 'Information1',
+      component: () => import('../information/Information1.vue')
+    },
+    {
+      path: '/Information2',
+      name: 'Information2',
+      component: () => import('../information/Information2.vue')
+    },
+    {
+      path: '/Information3',
+      name: 'Information3',
+      component: () => import('../information/Information3.vue')
+    },
   ]
 })
 
